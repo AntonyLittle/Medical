@@ -53,27 +53,37 @@
                 This is a lightweight demo of a medical imaging app, making use of Bootstrap, JQuery and Knockout to provide an AJAX-based MVVM single-page application.
                 It has been written in about 12 hours in total, and is intended to show a basic grasp of the concepts involved.
             </p>
+            <p>
+                The most recent source code can be found at <a href="https://github.com/AntonyLittle/Medical">https://github.com/AntonyLittle/Medical</a>.
+            </p>
+            <p>
+                KNOWN ISSUES:
+                <ul>
+                    <li>Loading volumes is <i>very</i> slow - it's using JSON to serialise volume data. This is obviously wrong(!) and is next up to be amended, but remains as is due to time constraints</li>
+                    <li>There's something not quite right with Wl/WW - it seems to be 'jumping'. </li>
+                </ul>
+            </p>
+        </div>
+    </div>
+
+    <!-- Patients grid -->
+    <div class="container">
+        <a href="#" data-bind="click: $root.LoadPatients">Refresh</a>
+        <div data-bind="visible: ArePatientsLoading">Loading patients...</div>
+        <div data-bind="visible: ArePatientsLoading() == false">
+            <table class="table-bordered" style="width:100%">
+                <thead><tr><th style="padding: 10px">Patient</th></tr></thead>
+                <tbody data-bind="foreach: Patients">
+                    <tr data-bind="click: $root.SelectCurrentPatient, css: { selected: $data.patientId == $root.CurrentPatient().patientId }">
+                        <td data-bind="text: name"></td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
     <div class="container">
-        <a href="#" data-bind="click: $root.LoadPatients">Refresh</a>
         <div class="row">
-            <!-- Patients grid -->
-            <div class="col-md-2">
-                <div data-bind="visible: ArePatientsLoading">Loading patients...</div>
-                <div data-bind="visible: ArePatientsLoading() == false">
-                    <table class="table-bordered">
-                        <thead><tr><th style="padding: 10px">Patient</th></tr></thead>
-                        <tbody data-bind="foreach: Patients">
-                            <tr data-bind="click: $root.SelectCurrentPatient, css: { selected: $data.patientId == $root.CurrentPatient().patientId }">
-                                <td data-bind="text: name"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
             <!-- Volumes grid -->
             <div class="col-md-3">
                 <div data-bind="visible: ArePatientVolumesLoading">Loading volume summaries...</div>
@@ -109,7 +119,7 @@
                     <li>
                         Slice:
                         <a class="btn btn-outline-primary btn-sm" href="#" data-bind="click: CineViewModel.ChangeCurrentSliceIndex(CineViewModel.CurrentSliceIndex() + 1)">+</a>
-                        <span data-bind="text: $root.CineViewModel.CurrentSliceIndex()"></span>
+                        <span data-bind="text: $root.CineViewModel.CurrentSliceIndex() + 1"></span><span>/</span><span data-bind="text: $root.CineViewModel.Volume().slices.length"></span>
                         <a class="btn btn-outline-primary btn-sm" href="#" data-bind="click: CineViewModel.ChangeCurrentSliceIndex(CineViewModel.CurrentSliceIndex() - 1)">-</a>
                         <span>(RMB drag Y axis)</span>
                     </li>

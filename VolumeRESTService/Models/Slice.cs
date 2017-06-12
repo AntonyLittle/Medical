@@ -17,8 +17,8 @@ namespace VolumeRESTService.Models
 
         public int Index { get; set; }
 
-        public short Width { get; set; }
-        public short Height { get; set; }
+        public int Width { get; set; }
+        public int Height { get; set; }
 
         public short[] Radiodensities { get; set; }
     }

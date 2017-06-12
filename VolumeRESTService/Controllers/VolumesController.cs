@@ -25,14 +25,7 @@ namespace VolumeRESTService.Controllers
         {
             try
             {
-                //return new ObjectResult(m_repo.GetVolumeSummaries(patientId));
                 var list = new List<Volume>(m_repo.GetVolumeSummaries(patientId));
-
-                Debug.WriteLine("");
-                Debug.WriteLine($"PatientID: {patientId}");
-                Debug.WriteLine($"List count: {list.Count}");
-                Debug.WriteLine("");
-
 
                 return new ObjectResult(list);
             }

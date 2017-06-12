@@ -24,6 +24,10 @@ function CineViewModel(observableVolume) {
     self.CurrentSlice = ko.computed(
         function () {
             if (self.CurrentSliceIndex() >= self.Volume().slices.length) {
+                self.CurrentSliceIndex(0);
+            }
+
+            if (self.Volume().slices.length == 0) {
                 var dummySlice = { sliceId: -1, volumeId: -1, patientId: -1, index: -1, width: 0, weight: 0, radiodensities: [] };
                 return dummySlice;
             }
