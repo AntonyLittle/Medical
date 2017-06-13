@@ -77,27 +77,27 @@
     <!-- Patients grid -->
     <div class="container">
         <a href="#" data-bind="click: $root.LoadPatients">Refresh</a>
-        <div data-bind="visible: ArePatientsLoading">Loading patients...</div>
-        <div data-bind="visible: ArePatientsLoading() == false">
+        <div>
             <table class="table-bordered" style="width:100%">
                 <thead><tr><th style="padding: 10px">Patient</th></tr></thead>
-                <tbody data-bind="foreach: Patients">
+                <tbody data-bind="visible: ArePatientsLoading() == false, foreach: Patients">
                     <tr data-bind="click: $root.SelectCurrentPatient, css: { selected: $data.patientId == $root.CurrentPatient().patientId }">
                         <td data-bind="text: name"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <div data-bind="visible: ArePatientsLoading">Loading patients...</div>
     </div>
 
     <div class="container">
         <div class="row">
             <!-- Volumes grid -->
             <div class="col-md-3">
-                <div data-bind="visible: ArePatientVolumesLoading() == false">
+                <div>
                     <table class="table-bordered">
                         <thead><tr><th style="padding: 10px">Volume Name</th><th style="padding:10px">Modality</th></tr></thead>
-                        <tbody data-bind="foreach: CurrentPatientVolumes">
+                        <tbody data-bind="visible: ArePatientVolumesLoading() == false, foreach: CurrentPatientVolumes">
                             <tr data-bind="click: $root.SelectCurrentVolume, css: { selected: $data.volumeId == $root.CurrentVolume().volumeId }">
                                 <td data-bind="text: name"></td>
                                 <td data-bind="text: modality"></td>
