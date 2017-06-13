@@ -8,7 +8,7 @@ function CineRenderer(cineViewModel, canvas) {
     // Mouse interactions should really be separate classes that can be aggragated with renderers to create views.
     // This will do for now, though, since there's only one renderer and 2 interactions
     self.CineMinMouseYDelta = self.Canvas.height / 100;
-    self.WLWWMinMouseXDelta = self.Canvas.width / 1000;
+    self.WLWWMinMouseXDelta = self.Canvas.width / 2000;
     self.WLWWMinMouseYDelta = self.Canvas.height / 1000;
     self.CinePressedMouseYPos = null;
     self.CinePressedSliceIndex = 0;
@@ -141,10 +141,9 @@ function VoxelToPixel(voxelValueHU, windowLevel, windowWidth) {
     if (voxelValueHU >= upperBound)
         return [255, 255, 255];
 
-    var difference = upperBound - lowerBound;
-    var scale = Math.round(difference / 256);
+    var range = upperBound - lowerBound;
 
-    var val = Math.round((voxelValueHU - lowerBound) / scale);
+    var val = Math.round(((voxelValueHU - lowerBound) / range) * 255);
 
     return [val, val, val];
 }
