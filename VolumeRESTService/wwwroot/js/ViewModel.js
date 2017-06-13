@@ -1,5 +1,6 @@
-﻿
-// Main ViewModel
+﻿//
+// Main ViewModel for our single-page app.
+//
 function ViewModel() {
     var self = this;
 
@@ -8,7 +9,7 @@ function ViewModel() {
     self.PatientVolumesLoadingXHR = null;
     self.CurrentVolumeLoadingXHR = null;
 
-    // Loading statuses
+    // Loading statuses (ko observables)
     self.ArePatientsLoading = ko.observable(false);
     self.ArePatientVolumesLoading = ko.observable(false);
     self.IsCurrentVolumeLoading = ko.observable(false);
@@ -118,6 +119,7 @@ function ViewModel() {
     self.CineViewModel = new CineViewModel(self.CurrentVolume);
 }
 
+// Helper function for making a cancelable AJAX request
 function MakeAjaxJSONRequest(requestUrl, callbackSuccess, callbackAlways) {
     return $.ajax({
         url: requestUrl,

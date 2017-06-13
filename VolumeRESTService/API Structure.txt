@@ -1,3 +1,4 @@
 /patients - summary of patients (ids, names)
 /patients/1 - specific patient information (currently just id and name)
-/patients/1/volumes - summary of volumes (currently just id and name(
+/patients/1/volumes - summary of volumes (currently just id and name)
+/patients/1/volumes/1 - a volumes, complete with slices

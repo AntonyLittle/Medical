@@ -1,4 +1,6 @@
-﻿ko.bindingHandlers.numeric = {
+﻿// A helper class for specifying a number-only data binding input. Allows use of the "numeric" keyword in data-bind entries.
+
+ko.bindingHandlers.numeric = {
     init: function (element, valueAccessor) {
         $(element).on("keydown", function (event) {
             // Allow: backspace, delete, tab, escape, and enter

@@ -1,4 +1,6 @@
-﻿
+﻿//
+// View model for the Cine view component. Aggregated by the main ViewModel class.
+//
 function CineViewModel(observableVolume) {
     var self = this;
 

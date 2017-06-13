@@ -14,10 +14,14 @@
     <script type='text/javascript' src='/js/CineViewModel.js'></script>
     <script type='text/javascript' src='/js/ViewModel.js'></script>
     <script type='text/javascript' src='/js/Renderers/CineRenderer.js'></script>
+    <script type='text/javascript' src='/js/ViewTools/Cine/CineTool.js'></script>
+    <script type='text/javascript' src='/js/ViewTools/Shared/WLWWTool.js'></script>
+    <script type='text/javascript' src='/js/ViewComponents/BasicViewComponent.js'></script>
+    <script type='text/javascript' src='/js/ViewComponents/Factories/ViewComponentFactory.js'></script>
 
     <script type='text/javascript'>
 
-        var cineRenderer = null;
+        var cineViewComponent = null;
 
         function OnLoad() {
 
@@ -33,7 +37,12 @@
             viewModel.SetURL("/api/Patients");
             viewModel.LoadPatients();
 
-            cineRenderer = new CineRenderer(viewModel.CineViewModel, document.getElementById("cineCanvas"));
+
+
+            var viewComponentFactory = new ViewComponentFactory();
+            cineViewComponent = viewComponentFactory.CreateCineViewComponent(viewModel.CineViewModel, document.getElementById("cineCanvas"));
+
+            //cineRenderer = new CineRenderer(viewModel.CineViewModel, document.getElementById("cineCanvas"));
         }
     </script>
 
@@ -51,7 +60,7 @@
             <h1>Medical Imaging Demo</h1>
             <p>
                 This is a lightweight demo of a medical imaging app, making use of Bootstrap, JQuery and Knockout to provide an AJAX-based MVVM single-page application.
-                It has been written in about 12 hours in total, and is intended to show a basic grasp of the concepts involved.
+                It has been written in about 16 hours in total, and is intended to show a basic grasp of the concepts involved.
             </p>
             <p>
                 The most recent source code can be found at <a href="https://github.com/AntonyLittle/Medical">https://github.com/AntonyLittle/Medical</a>.
@@ -85,7 +94,6 @@
         <div class="row">
             <!-- Volumes grid -->
             <div class="col-md-3">
-                <div data-bind="visible: ArePatientVolumesLoading">Loading volume summaries...</div>
                 <div data-bind="visible: ArePatientVolumesLoading() == false">
                     <table class="table-bordered">
                         <thead><tr><th style="padding: 10px">Volume Name</th><th style="padding:10px">Modality</th></tr></thead>
@@ -97,6 +105,7 @@
                         </tbody>
                     </table>
                 </div>
+                <div data-bind="visible: ArePatientVolumesLoading">Loading volume summaries...</div>
             </div>
 
             <!-- Volume render -->

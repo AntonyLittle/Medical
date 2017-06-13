@@ -11,7 +11,11 @@
     <Content Include="wwwroot\js\CineViewModel.js" />
     <Content Include="wwwroot\js\Helpers\KONumericBinding.js" />
     <Content Include="wwwroot\js\Renderers\CineRenderer.js" />
+    <Content Include="wwwroot\js\ViewComponents\BasicViewComponent.js" />
+    <Content Include="wwwroot\js\ViewComponents\Factories\ViewComponentFactory.js" />
     <Content Include="wwwroot\js\ViewModel.js" />
+    <Content Include="wwwroot\js\ViewTools\Cine\CineTool.js" />
+    <Content Include="wwwroot\js\ViewTools\Shared\WLWWTool.js" />
     <Content Include="wwwroot\js\WindowLevelAndWidthViewModel.js" />
   </ItemGroup>
   <ItemGroup>

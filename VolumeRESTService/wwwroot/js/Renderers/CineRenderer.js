@@ -1,82 +1,18 @@
-﻿
+﻿//
+// Renders a slice onto the canvas. Updates occur when the Volume, WL/WW or current slice changes
+//
+// TODO:
+//      Make allowances for voxel shapes and spacing
+//      Allow for irregular slice dimensions (currently only allows square slices)
+//      Proper scaling of image - current method is very unsophisticated
 function CineRenderer(cineViewModel, canvas) {
     var self = this;
 
-    self.CineViewModel = cineViewModel;
-    self.Canvas = canvas;
+    // Inputs
+    self.CineViewModel = cineViewModel; // view model for determining what to draw
+    self.Canvas = canvas; // canvas for drawing on
 
-    // Mouse interactions should really be separate classes that can be aggragated with renderers to create views.
-    // This will do for now, though, since there's only one renderer and 2 interactions
-    self.CineMinMouseYDelta = self.Canvas.height / 100;
-    self.WLWWMinMouseXDelta = self.Canvas.width / 2000;
-    self.WLWWMinMouseYDelta = self.Canvas.height / 1000;
-    self.CinePressedMouseYPos = null;
-    self.CinePressedSliceIndex = 0;
-    self.WLWWLastMouseXPos = null;
-    self.WLWWLastMouseYPos = null;
-    self.WLWWLastWindowWidth = null;
-    self.WLWWLastWindowLevel = null;
-
-    self.Canvas.oncontextmenu = function (event) {
-        return false;
-    }
-
-    self.Canvas.onmousedown = function (event) {
-        if (event.buttons == 2) {
-            self.CinePressedMouseYPos = event.layerY;
-            self.CinePressedSliceIndex = self.CineViewModel.CurrentSliceIndex();
-        }
-
-        if (event.buttons == 3) {
-            self.WLWWLastMouseXPos = event.layerX;
-            self.WLWWLastMouseYPos = event.layerY;
-            self.WLWWLastWindowWidth = self.CineViewModel.WindowWidth();
-            self.WLWWLastWindowLevel = self.CineViewModel.WindowLevel();
-        }
-    }
-
-    self.Canvas.onmousemove = function (event) {
-        if (event.buttons == 0)
-            return;
-
-        if (event.buttons == 2) {
-            if (Math.abs(self.CinePressedMouseYPos - event.layerY) >= self.CineMinMouseYDelta) {
-                var delta = self.CinePressedMouseYPos - event.layerY;
-                var sliceDelta = Math.round(delta / self.CineMinMouseYDelta);
-
-                self.CineViewModel.ChangeCurrentSliceIndex(self.CinePressedSliceIndex - sliceDelta);
-            }
-
-            return false;
-        }
-
-        if (event.buttons == 3) {
-            if (Math.abs(self.WLWWLastMouseXPos - event.layerX) >= self.WLWWMinMouseXDelta) {
-                var delta = self.WLWWLastMouseXPos - event.layerX;
-
-                var wlDelta = Math.round(delta / self.WLWWMinMouseXDelta);
-
-                self.CineViewModel.WindowWidth(self.WLWWLastWindowWidth - wlDelta);
-            }
-
-            if (Math.abs(self.WLWWLastMouseYPos - event.layerY) >= self.WLWWMinMouseYDelta) {
-                var delta = self.WLWWLastMouseYPos - event.layerY;
-
-                var wwDelta = Math.round(delta / self.WLWWMinMouseYDelta);
-
-                self.CineViewModel.WindowLevel(self.WLWWLastWindowLevel - wwDelta);
-            }
-
-            return false;
-        }
-    }
-
-    // Renders a slice onto the canvas.
-    // TODO:
-    //      Make allowances for voxel shapes
-    //      Allow for irregular slice dimensions (currently only allows square slices)
-    //      Proper scaling of image - current method is very unsophisticated
-    //      Plenyty of other stuff I have undoubtedly forgotten...
+    // Draws the slice to the canvas
     self.Draw = function () {
         var context = self.Canvas.getContext("2d");
 
@@ -130,6 +66,7 @@ function CineRenderer(cineViewModel, canvas) {
     self.Draw();
 }
 
+// Helper function for translating a HU value to a pixel value, via WL/WW
 function VoxelToPixel(voxelValueHU, windowLevel, windowWidth) {
     var halfWidth = Math.round(windowWidth / 2);
     var lowerBound = windowLevel - halfWidth;
