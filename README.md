@@ -7,4 +7,4 @@ The most recent source code can be found at https://github.com/AntonyLittle/Medi
 
 KNOWN ISSUES:
 	* Loading volumes is <i>very</i> slow - it's using JSON to serialise volume data. This is obviously wrong(!) and is next up to be amended, but remains as is due to time constraints.
-	* There's something not quite right with Wl/WW - it seems to be 'jumping'. 
+
